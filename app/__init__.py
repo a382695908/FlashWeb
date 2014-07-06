@@ -9,6 +9,8 @@ app = Flask(__name__)
 from app import views
 
 from flask.ext.bootstrap import Bootstrap
+#to prevent inserting CDN hosted bootstrap files, PITA when I'm coding on train with no WiFi.
+app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 bootstrap = Bootstrap(app)
 
 
