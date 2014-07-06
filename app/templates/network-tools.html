@@ -2,18 +2,40 @@
 
 {% block content %}
 
+<div class="panel-group" id="accordion">
   <div class="container">
-    <h3> IP Address </h3>
-    <p> {{ip}} </p>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#IPAddress">
+            IP Address
+          </a>
+        </h3>
+      </div>
+      <div id="IPAddress" class="panel-collapse collapse">
+        <div class="panel-body">
+          <p> {{ip}} </p>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#Headers">
+            Headers
+          </a>
+        </h3>
+      </div>
+      <div id="Headers" class="panel-collapse collapse">
+        <div class="panel-body">
+          <p> 
+            {% for key, value in headers.iteritems() %}
+              <strong>{{ key|e }}:</strong> {{ value|e }} <br>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
   </div>
-
-  <div class="container">
-    <h3> Headers </h3>
-    <p> 
-      {% for key, value in headers.iteritems() %}
-        <strong>{{ key|e }}:</strong> {{ value|e }} <br>
-      {% endfor %}
-    </p>
-  </div>
+</div>
 
 {% endblock %}
