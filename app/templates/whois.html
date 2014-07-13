@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Whois{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1> Whois </h1>
+  <br>
+
+  {% if jwhois_output %}
+    {% for line in jwhois_output %}
+      {{ line }} <br>
+    {% endfor %}
+  {% else %}
+      <div class="col-md-4">
+      {{ wtf.quick_form(whois_ip_form) }}
+      </div>
+  {% endif %} 
+</div> <!-- /container -->
+
+{% endblock %}
