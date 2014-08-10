@@ -2,8 +2,8 @@ from app import app
 from flask import render_template
 from flask import request
 from flask import jsonify
-from forms import WhoisIPForm
-import subprocess
+from forms import WhoisIPForm,WhoisDomainForm
+from models import perform_whois_query
 
 '''
 - The application instance needs to know what code to run for each URL requested.
@@ -35,16 +35,15 @@ def network_tools_whois():
   jwhois_output = None
 
   whois_ip_form = WhoisIPForm()
+  whois_domain_form = WhoisDomainForm()
 
   if whois_ip_form.validate_on_submit():
     ip = whois_ip_form.whois_ip.data
     whois_ip_form.whois_ip.data = ''
- 
-    p = subprocess.Popen(["/usr/bin/jwhois", ip], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = p.communicate()
-    jwhois_output = out.split('\n')    
+    jwhois_output = perform_whois_query(ip)
  
   #pass form object as form parameter to render_template function
   return render_template('whois.html', 
                           whois_ip_form=whois_ip_form, 
+                          whois_domain_form=whois_domain_form, 
                           jwhois_output=jwhois_output)

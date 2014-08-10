@@ -16,6 +16,12 @@
   {% else %}
       <div class="col-md-4">
       {{ wtf.quick_form(whois_ip_form) }}
+
+      <!-- try without quick form button clash -->
+      <form method="POST">
+      {{ whois_domain_form.whois_domain.label }} {{ whois_domain_form.whois_domain() }}
+      {{ whois_domain_form.submit() }}
+</form>
       </div>
   {% endif %} 
 </div> <!-- /container -->
